@@ -21,5 +21,7 @@ Integrantes:\
 Exequiel Rodrigo Andrade Rojas\
 David Alejandro Godoy Ayala
 
+link sitio online: https://dev.d3d3cio5piihtc.amplifyapp.com/admin/login
+
 Este repositorio solo contara con el front-end, el backend esta en un servidor en linea por tema de
 confidencialidad
