@@ -20,3 +20,6 @@ Credenciales:
 Integrantes:\
 Exequiel Rodrigo Andrade Rojas\
 David Alejandro Godoy Ayala
+
+Este repositorio solo contara con el front-end, el backend esta en un servidor en linea por tema de
+confidencialidad
