@@ -1,0 +1,37 @@
+<ng-container *ngIf="isLoad else loader">
+    <div class="container-fluid"> 
+        <div class="row g-0">
+            <div class="col-12 px-0" style="margin-top:90px;">
+                <p id="title">ESTADISTICAS GENERALES</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row g-0">
+                    <div class="col" style="max-width: 190px;">
+                        <h1 id="subTitle">Asignatura:</h1>
+                        <select [(ngModel)]="optionSubject" (change)="selectSubject(optionSubject)" id="selectSubject" class="form-select" aria-label="Default select example" [disabled]="listSubjects.length <= 0">
+                            <option id="optionSubject" *ngFor="let item of allSubjects" [value]="item._id">{{item.name | capitalize}}</option>
+                        </select>
+                    </div>
+                    <div class="col" style="max-width: 190px;">
+                        <h1 id="subTitle">Curso:</h1>
+                        <select [(ngModel)]="optionCourse" (change)="selectCourse(optionCourse)" id="selectCourse" class="form-select" aria-label="Default select example" [disabled]="coursesInSubject.length <= 0">
+                            <option id="optionCourse" *ngFor="let item of coursesInSubject" [value]="item._id">{{item.name | capitalizeAll}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <shared-date (AvarageStudents)="averageStudent($event)" [alumnsInCourse]="AlumnsInCourse" [promediosAlumnos]="promediosAlumnos"></shared-date>
+        <div class="statistics mb-5">
+            <admin-statistics-chart 
+                [avarageStudent]="avarageStudent"
+                [dataStudentInput]="AlumnsInCourse" 
+            ></admin-statistics-chart>
+        </div>
+    </div>
+</ng-container>
+<ng-template #loader>
+    <shared-loader></shared-loader>
+</ng-template>

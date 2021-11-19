@@ -1,0 +1,261 @@
+<ng-container *ngIf="isLoad else loader">
+    <div class="modal-header">
+        <h5 id="title" class="modal-title ps-5 pt-3">Agregar Evaluación</h5>
+        <button type="button" class="btn-close" (click)="activeModal.close('cancel')"></button>
+    </div>
+    <div class="modal-body p-md-3 p-0">
+        <div class="text-end">
+            <p class="obligatory-field">(*) Campo Obligatorio </p>
+        </div>
+        <div class="row justify-content-center text-start g-0">
+            <div class="col-12 col-md-11 px-2">
+                <form [formGroup]="checkoutForm" #createForm="ngForm" (ngSubmit)="onSubmit(createForm)" >
+                    <div [ngClass]="{'notShow': !showFront}">
+                        <div class="row justify-content-center g-0">
+                            <div class="col mb-3 pe-2">
+                                <label class="mb-2 pe-2" for="nameEvaluation" style="font-weight: bold;">Título de evaluación <span class="required">*</span></label>
+                                <small class="text-danger" style="text-align: left;"
+                                    *ngIf="controlIsRequired('nameEvaluation') && createForm.submitted"
+                                >
+                                    (Título de evaluación requerido)
+                                </small>
+                                <div>
+                                    <input type="text" 
+                                        formControlName="nameEvaluation"
+                                        class="form-control" 
+                                        placeholder="Título de evaluación" aria-label="Buscar" 
+                                        aria-describedby="basic-addon1" 
+                                        style="display: inline-flex;"
+                                        [ngClass]="{ 'is-invalid': controlIsInvalid('nameEvaluation') && createForm.submitted }"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col mb-3 pe-2">
+        
+                            </div>
+                        </div>                
+                        <div class="row justify-content-left g-0">
+                            <div class="col mb-3 pe-2">
+                                <label class="mb-2" for="subjectName" style="font-weight: bold;">Asignatura</label>
+                                <div>
+                                    <input type="text" 
+                                        formControlName="subjectName"
+                                        class="form-control" 
+                                        placeholder="Asignatura" aria-label="Buscar" 
+                                        aria-describedby="basic-addon1" 
+                                        style="display: inline-flex;"
+                                        [ngClass]="{ 'is-invalid': controlIsInvalid('subjectName') && createForm.submitted }"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col mb-3 ps-2">
+                                <label class="mb-2" for="unit" style="font-weight: bold;">Unidad <span class="required">*</span></label>
+                                <small class="text-danger" style="text-align: left;"
+                                    *ngIf="controlIsRequired('unit') && createForm.submitted"
+                                >
+                                    (Unidad requerida)
+                                </small>
+                                <div>
+                                    <select type="text" 
+                                        formControlName="unit"
+                                        class="form-select" 
+                                        placeholder="Unidad" aria-label="Buscar" 
+                                        aria-describedby="basic-addon1" 
+                                        style="display: inline-flex;"
+                                        (ngModelChange)="unitSelect($event)"
+                                        [ngClass]="{ 'is-invalid': controlIsInvalid('unit') && createForm.submitted }"
+                                    >
+                                        <option selected disabled>Seleccione una unidad</option>
+                                        <option *ngFor="let unit of subjectSelected.units" [value]="unit._id">{{unit.name | capitalize}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-left g-0">
+                            <div class="col-6 mb-3 pe-2">
+                                <label class="mb-2" for="lesson" style="font-weight: bold;">Lección <span class="required">*</span></label>
+                                <small class="text-danger" style="text-align: left;"
+                                    *ngIf="controlIsRequired('lesson') && createForm.submitted"
+                                >
+                                    (Lección requerida)
+                                </small>
+                                <ng-container *ngIf="isEmpty">
+                                    <div>
+                                       <small class="text-danger" style="text-align: left;">
+                                           (Todas las lecciones de la unidad ya tienen evaluaciones)
+                                       </small>
+                                    </div>
+                                </ng-container>
+                                <div>
+                                    <select type="text" 
+                                        formControlName="lesson"
+                                        class="form-select" 
+                                        placeholder="Leccion" aria-label="Buscar" 
+                                        aria-describedby="basic-addon1" 
+                                        style="display: inline-flex;"
+                                        (ngModelChange)="lessonSelect($event)"
+                                        [ngClass]="{ 'is-invalid': controlIsInvalid('lesson') && createForm.submitted }"
+                                    >
+                                        <option selected disabled>Seleccione una lección</option>
+                                        <option *ngFor="let lesson of lessonFilter" [value]="lesson._id">{{lesson.name | capitalize}}</option>
+                                    </select>
+                                </div>                                
+                            </div>
+                        </div> 
+                        <div class="row justify-content-left g-0">
+                            <div class="col mb-3">
+                                <div class="text-end">
+                                    <label style="font-weight: bold;">Agregar Pregunta</label>
+                                    <button (click)="showFront = !showFront; isEdit = false" type="button" class="btn sucess plus mx-2">
+                                        <i class="fas fa-plus fa-lg pt-2"></i>
+                                    </button>
+                                </div>
+                                <table class="mt-3">
+                                    <thead id="columns">
+                                        <tr>
+                                          <th [id]="'size'+i" scope="col" *ngFor="let column of headerTables; let i = index" 
+                                            style="padding-left: 20px;" >
+                                            {{column}}  
+                                          </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let question of questions | paginate: { id: 'questionTable',itemsPerPage: 3, currentPage: p }; let i = index; let row"
+                                        (click)="selection.toggle(row); selectRow(row); selectData(i)" 
+                                        [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}">
+                                            <td style="width: 100px; padding-left: 10px;">
+                                                <i id="arrow" type="button" (click)="arraymove(i,i-1)" class="mx-2 fas fa-lg fa-long-arrow-alt-up"></i>
+                                                <i id="arrow" type="button" (click)="arraymove(i,i+1)" class="mx-2 fas fa-lg fa-long-arrow-alt-down"></i>
+                                            </td>
+                                            <td style="min-width: 250px;">{{question.questionName |capitalize}}</td>
+                                            <td>{{question.alternatives.length}}</td>
+                                            <td>
+                                                <button id="edit" type="button" class="btn p-0 mx-1" 
+                                                    (click)="selectRowEdit(row);editQuestion(row,i);showFront = !showFront;">Editar</button>
+                                                <button id="delete" type="button" class="btn p-0 mx-1" 
+                                                    (click)="selectRow(row); deleteQuestion(i)">Eliminar</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="container-fluid" [ngClass]="{'notShow': !isPaginator}">
+                                    <div class="row justify-content-end">
+                                      <div class="col">
+                                        <pagination-controls class="pagination" 
+                                          id="questionTable" 
+                                          (pageChange)="p = $event"
+                                          [autoHide]="false"
+                                          [responsive]="true"
+                                          previousLabel=""
+                                          nextLabel=""
+                                          >
+                                        </pagination-controls>   
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>     
+                    </div> <!-- end page front -->
+                    <div [ngClass]="{'notShow': showFront}">
+                        <div class="row justify-content-left g-0">
+                            <div class="col mb-3 pe-2">
+                                <label class="mb-2" style="font-weight: bold;">Pregunta</label>
+                                <small class="text-danger" [ngClass]="{'requiredAlert': !validQuestion}" style="text-align: left;">
+                                    (Pregunta requerida)
+                                </small>
+                                <div>
+                                    <textarea 
+                                    id="question"
+                                    type="text"
+                                    class="form-control" 
+                                    placeholder="Pregunta" 
+                                    rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-8 mb-3">
+                                <label for="formFile" style="font-weight: bold;" class="form-label">Agregar imagen (opcional)</label>
+                                <input #inputFile
+                                    accept='image/*'
+                                    (change)="selectFile($event)" 
+                                    class="form-control"
+                                    
+                                    type="file" 
+                                    id="formFile"
+                                    (click)="inputFile.click()"
+                                >
+                              </div>
+                              <!-- formControlName="image" -->
+                        </div>
+
+                        <div class="row justify-content-left g-0">
+                            <div class="col-12 mb-3">
+                                <label class="mb-2" style="font-weight: bold;">Alternativa</label>
+                                <small class="text-danger" [ngClass]="{'requiredAlert': !validAlternative}" style="text-align: left;">
+                                    (Alternativa requerida)
+                                </small>
+                                <small class="text-danger" [ngClass]="{'requiredAlert': !validNameAlternative}" style="text-align: left;">
+                                    (Alternativas sin nombre)
+                                </small>
+                                <small class="text-danger" [ngClass]="{'requiredAlert': validCheckAlternative}" style="text-align: left;">
+                                    (Al menos una alterniva con check)
+                                </small>
+                                <ng-container *ngFor="let alternative of alternatives; let i = index" >
+                                    <div class="p-2 mb-1">
+                                        <div class="input-group mb-2">
+                                            <span class="me-2 mt-2">{{(i+1)+'.- '}}</span>
+                                            <textarea 
+                                            [id]="'alternative'+i"
+                                            class="form-control" 
+                                            placeholder="Alternativa"
+                                            style="width: 60%;"
+                                            [value]="alternative.alternative? alternative.alternative : ''" 
+                                            rows="1"></textarea>                                  
+                                            <button class="btn btnDeleted" type="button" (click)="alternatives.splice(i,1)">X</button>
+                                        </div>
+                                        <div class="row g-0">
+                                            <div class="col">
+                                                <div class="input-group ms-3">
+                                                    <input [checked]="alternative.isCorrect? true : false" [id]="'checkbox'+i" class="form-check-input ms-2" type="checkbox" value="" style="margin-top: 10px;">
+                                                    <p class="ms-2 mt-2">¿Es Correcta?</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>    
+                        <button class="btn sucess plusAlt" type="button" (click)="alternatives.push({})">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>    
+                    <div class="row g-0 justify-content-center">
+                        <div class="col">                        
+                            <div class="text-end mt-4">
+                                <button [disabled]="isEmpty" [ngClass]="{'notShow': !showFront || isLoadButton}" type="submit" class="btn sucess mx-2">Agregar</button>
+                                <button [ngClass]="{'notShow': showFront || !isEdit}" type="button" 
+                                (click)="confimEditQuestion();showFront = !showFront; isEdit=false" class="btn sucess mx-2">Editar Pregunta</button>
+                                <button [ngClass]="{'notShow': (showFront || isEmpty || isEdit)}" type="button" 
+                                (click)="addQuestion();" class="btn sucess mx-2">Agregar Pregunta</button>
+                                <button [ngClass]="{'notShow': !isLoadButton}" disabled type="button" class="btn sucess mx-2">
+                                    <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </button>
+                                <button [ngClass]="{'notShow': showFront}" type="button" 
+                                    (click)="showFront = !showFront; clearQuestion()" 
+                                    class="btn back mx-2">Volver</button>
+                                <button [disabled]="isLoadButton" type="button" class="btn btnDeleted ms-2" (click)="activeModal.close('cancel')">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-template #loader>
+    <shared-loader></shared-loader>
+</ng-template>

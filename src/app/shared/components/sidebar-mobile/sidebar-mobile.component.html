@@ -1,0 +1,104 @@
+<button class="btn ps-0" (click)="openSidebar()" style="position: fixed;">
+    <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.01924 0C0.456329 0 0 0.456312 0 1.01924C0 1.58213 0.456329 2.03847 1.01924 2.03847H19.3655C19.9284 2.03847 20.3847 1.58213 20.3847 1.01924C20.3847 0.456312 19.9284 0 19.3655 0H1.01924ZM1.01924 6.11542C0.456329 6.11542 0 6.57173 0 7.13465C0 7.69754 0.456329 8.15389 1.01924 8.15389H19.3655C19.9284 8.15389 20.3847 7.69754 20.3847 7.13465C20.3847 6.57173 19.9284 6.11542 19.3655 6.11542H1.01924ZM1.01924 12.2308C0.456329 12.2308 0 12.6871 0 13.2501C0 13.813 0.456329 14.2693 1.01924 14.2693H19.3655C19.9284 14.2693 20.3847 13.813 20.3847 13.2501C20.3847 12.6871 19.9284 12.2308 19.3655 12.2308H1.01924Z" fill="#55AAD3"/>
+    </svg> 
+</button>
+
+<div #sideBar class="sidebar">
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="col px-2 mx-1">
+                <button class="btn" (click)="openSidebar()">
+                    <svg width="21" height="15" viewBox="0 0 21 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.51924 0.5C0.956329 0.5 0.5 0.956312 0.5 1.51924C0.5 2.08213 0.956329 2.53847 1.51924 2.53847H19.8655C20.4284 2.53847 20.8847 2.08213 20.8847 1.51924C20.8847 0.956312 20.4284 0.5 19.8655 0.5H1.51924ZM1.51924 6.61542C0.956329 6.61542 0.5 7.07173 0.5 7.63465C0.5 8.19754 0.956329 8.65389 1.51924 8.65389H19.8655C20.4284 8.65389 20.8847 8.19754 20.8847 7.63465C20.8847 7.07173 20.4284 6.61542 19.8655 6.61542H1.51924ZM1.51924 12.7308C0.956329 12.7308 0.5 13.1871 0.5 13.7501C0.5 14.313 0.956329 14.7693 1.51924 14.7693H19.8655C20.4284 14.7693 20.8847 14.313 20.8847 13.7501C20.8847 13.1871 20.4284 12.7308 19.8655 12.7308H1.51924Z" fill="white"/>
+                    </svg>                        
+                </button>
+            </div>
+        </div>
+        <div class="row logo g-0">
+            <div class="col align-self-center pt-0 text-center">
+                <h2 class="title">Dashboard</h2>
+                <!-- <img id="logo" class="img-fluid" src="../../../../assets/sidebar/logo-main.svg">    -->    
+            </div>
+        </div>
+        <div class="row g-0">
+            <a class="btn" id="select" (click)="openSidebar()"
+            [routerLink]="['/'+pathRoute+'/teachers']" routerLinkActive="active" type="button" class="col-12"
+            [ngClass]="{'isNotAdmin':!isAdmin}">
+                <div class="row g-0">
+                    <div class="col offset-1 align-self-center">
+                        Profesores
+                    </div>
+                    <div class="col-4 align-self-center">
+                        <img class="img-fluid" src="../../../../assets/sidebar/logo-teacher.svg" alt="">
+                    </div>
+                </div>
+            </a>
+            <a class="btn" id="select" (click)="openSidebar()"
+            [routerLink]="['/'+pathRoute+'/alumns']" routerLinkActive="active" type="button" class="col-12">
+                <div class="row g-0">
+                    <div class="col offset-1 align-self-center">
+                        Alumnos
+                    </div>
+                    <div class="col-4 align-self-center">
+                        <img class="img-fluid" src="../../../../assets/sidebar/logo-students.svg" alt="">
+                    </div>
+                </div>
+            </a>
+            <a id="select" type="button" (click)="openSidebar()"
+            [routerLink]="['/'+pathRoute+'/courses']" routerLinkActive="active" class="col-12">
+                <div class="row g-0">
+                    <div class="col offset-1 align-self-center">
+                        Cursos
+                    </div>
+                    <div class="col-4 align-self-center">
+                        <img class="img-fluid" src="../../../../assets/sidebar/logo-course.svg" alt="">
+                    </div>
+                </div>
+            </a>
+            <a id="select" type="button" (click)="openSidebar()"
+            [routerLink]="['/'+pathRoute+'/subjects']" routerLinkActive="active" class="col-12">
+                <div class="row g-0">
+                    <div class="col offset-1 align-self-center">
+                        Asignatuas
+                    </div>
+                    <div class="col-4 align-self-center">
+                        <img class="img-fluid" src="../../../../assets/sidebar/logo-subjects.svg" alt="">
+                    </div>
+                </div>
+            </a>
+            <a id="select" type="button" (click)="openSidebar()"
+            [routerLink]="['/'+pathRoute+'/statistics']" routerLinkActive="active" class="col-12">
+                <div class="row g-0">
+                    <div class="col offset-1 align-self-center">
+                        Estadísticas
+                    </div>
+                    <div class="col-4 align-self-center">
+                        <img class="img-fluid" src="../../../../assets/sidebar/logo-statistics.svg" alt="">
+                    </div>
+                </div>
+            </a>
+            <a id="select" type="button" (click)="openSidebar()"
+            [routerLink]="['/'+pathRoute+'/options']" routerLinkActive="active" class="col-12">
+                <div class="row g-0">
+                    <div class="col offset-1 align-self-center">
+                        Ajustes
+                    </div>
+                    <div class="col-4 align-self-center">
+                        <img class="img-fluid" src="../../../../assets/sidebar/logo.settings.svg" alt="">
+                    </div>
+                </div>
+            </a>        
+            <a id="select" type="button" (click)="logOut()"  class="col-12">
+                <div class="row g-0">
+                    <div class="col offset-1 align-self-center">
+                        Salir
+                    </div>
+                    <!-- <div class="col-4 align-self-center">
+                        <img class="img-fluid" src="../../../../assets/sidebar/logo.settings.svg" alt="">
+                    </div> -->
+                </div>
+            </a>        
+        </div>
+    </div>
+</div>

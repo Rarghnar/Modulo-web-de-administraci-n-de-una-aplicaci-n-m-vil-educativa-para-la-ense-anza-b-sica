@@ -1,0 +1,60 @@
+#title {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    color: #000000;
+    margin-bottom: 0;
+}
+
+button{
+    min-width: 88px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #FFFFFF !important;
+}
+
+.sucess {
+    background-color: #76C768;
+}
+
+.sucess:hover {
+    background-color: #5f9c54;    
+}
+
+input:focus, input:active, .btn:active, .btn:focus, .btn-close:focus, .btn-close.active {
+    box-shadow: none;
+    overflow: none;
+}
+
+.notShow {
+    display: none;
+}
+
+.obligatory-field {
+    font-size: 10px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.obligatory-field {
+    font-size: 10px;
+    font-weight: 400;
+    margin: 0;
+}
+
+::ng-deep .dropdown-btn {
+    height: 38px !important;
+    border: 1px solid #ced4da !important;
+}
+
+::ng-deep .selected-item {
+    background-color: #55AAD3 !important;
+    border: 1px solid transparent !important;
+    /* border-radius: 15px !important; */
+    color: #FFFFFF !important;
+}
+
+/* ::ng-deep span {
+    color: #FFFFFF !important;
+} */

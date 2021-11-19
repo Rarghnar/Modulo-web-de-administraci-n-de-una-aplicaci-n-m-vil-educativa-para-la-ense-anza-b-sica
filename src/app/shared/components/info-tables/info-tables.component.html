@@ -1,0 +1,256 @@
+<div [ngClass]="{'big': selectHeader === 'teacher', 'mid': selectHeader !== 'teacher'}" style="overflow-x: auto;">
+  <table class="table table-borderless">
+    <thead id="columns">
+      <tr>
+
+        <th scope="col" *ngFor="let column of headerTables; let i = index"
+          (click)="sort(column)" 
+          [ngClass]="{'isNotAdmin': (i == (headerTables.length - 1) && (!isAdmin) && (selectHeader === 'student1'|| selectHeader === 'course1'))}"
+          style="padding-bottom: 14px; padding-left: 20px;" >
+          {{column}}  
+        </th>
+      </tr>
+    </thead>
+  
+    <ng-container *ngIf="selectHeader === 'teacher'" >    
+
+      <tbody style="cursor: pointer;">
+        <ng-container *ngIf="isLoad else loader">
+          <tr *ngFor="let data of dataInfo | searchFilter: searchText | paginate: { id: 'teacher',itemsPerPage: 5, currentPage: p }; let i = index; let row"
+          (click)="selection.toggle(row); selectRow(row); selectData(i,4)" 
+          [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}">
+            <td>{{data.teacherData.names | capitalizeAll}}</td>
+            <td style="min-width: 145px;">{{data.teacherData.lastNames | capitalizeAll}}</td>
+            <td>{{data.teacherData.rut}}</td>
+            <td>{{data.teacherData.email}}</td>
+            <td>{{data.teacherData.courses.length}}</td>
+            <td>{{data.cantStudents}}</td>
+            <td>
+              <button id="edit" class="btn p-0 mx-1" (click)="selectRow(row);openEditTeacherModal()">Editar</button>
+              <button id="delete" class="btn p-0 mx-1" (click)="selectRow(row);openDeletedModal()">Eliminar</button>
+            </td>  
+          </tr>
+        </ng-container>
+        <ng-template #loader>
+          <tr>
+            <td colspan="7">
+              <shared-loader></shared-loader>
+            </td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </ng-container>
+  
+    <ng-container *ngIf="selectHeader === 'student1'" >
+      <tbody style="cursor: pointer;">
+        <ng-container *ngIf="isLoad else loader">
+          <tr *ngFor="let data of dataInfo | searchFilter: searchText | paginate: { id:'student', itemsPerPage: 4, currentPage: p }; let i = index; let row"
+          (click)="selection.toggle(row); selectRow(row); selectData(i,4)" 
+          [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}">
+            <td>{{data.names | capitalizeAll}}</td>
+            <td>{{data.lastNames | capitalizeAll}}</td>
+            <td>{{data.rut}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.course[0]? (data.course[0].name | capitalizeAll) : 'Sin curso'}}</td>
+            <td>{{data.course[0]? data.course[0].subjects.length: '0'}}</td> <!-- data.course.subjects.length -->
+            <td [ngClass]="{'isNotAdmin': !isAdmin}">
+              <button id="edit" class="btn p-0 mx-1"(click)="selectRow(row);openEditStudentModal()">Editar</button>
+              <button id="delete" class="btn p-0 mx-1" (click)="selectRow(row);openDeletedModal()">Eliminar</button>
+            </td>  
+          </tr> 
+        </ng-container>
+        <ng-template #loader>
+          <tr>
+            <td colspan="7">
+              <shared-loader></shared-loader>
+            </td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </ng-container>
+  
+    <ng-container *ngIf="selectHeader === 'student2'" > 
+      <tbody style="cursor: pointer;">
+        <ng-container>
+          <tr *ngFor="let data of infoSelected | paginate: { id: 'studentInfo', itemsPerPage: 4, currentPage: p }; let i = index; let row"
+          (click)="selection.toggle(row); selectRow(row); selectData(i,4)" 
+          [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}">
+            <td>{{data.name | capitalize}}</td>
+            <td>{{data.unit | capitalize}}</td>
+            <td>{{data.date | date}}</td>
+            <td>{{data.cantQuestion}}</td>
+            <td>{{data.mark}}</td>
+            <td>{{data.averageMark}}</td> 
+          </tr>   
+        </ng-container>
+        <!-- <ng-template #loader>
+          <tr>
+            <td colspan="7">
+              <shared-loader></shared-loader>
+            </td>
+          </tr>
+        </ng-template> -->
+      </tbody>
+    </ng-container>
+
+    <ng-container *ngIf="selectHeader === 'course1'">
+      
+      <tbody style="cursor: pointer;">
+        <ng-container *ngIf="isLoad else loader">
+          <tr *ngFor="let data of dataInfo | searchFilter: searchText | paginate: { id: 'course', itemsPerPage: 4, currentPage: p }; let i = index; let row"
+          (click)="selection.toggle(row); selectRow(row); selectData(i,4)" 
+          [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}">
+            <td>{{data.name | capitalizeAll}}</td>
+            <td>{{data.students.length}}</td>
+            <td>{{data.subjects.length}}</td>
+            <td [ngClass]="{'isNotAdmin': !isAdmin}">
+              <button id="edit" class="btn p-0 mx-1"(click)="selectRow(row);openEditCourseModal()">Editar</button>
+              <button id="delete" class="btn p-0 mx-1" (click)="selectRow(row);openDeletedModal()">Eliminar</button>
+            </td>   
+          </tr>    
+        </ng-container>
+        <ng-template #loader>
+          <tr>
+            <td colspan="7">
+              <shared-loader></shared-loader>
+            </td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </ng-container> 
+    
+    <ng-container *ngIf="selectHeader === 'course2'" >
+      <tbody style="cursor: pointer;">
+        <tr *ngFor="let data of dataSelected | paginate: { id: 'infoCourse', itemsPerPage: 4, currentPage: p }; let i = index; let row"
+        (click)="selection.toggle(row); selectRow(row); selectData(i,4)" 
+        [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}">
+          <td class="pe-0">{{data.evaluations.name | capitalize}}</td>
+          <td class="pe-0">{{data.lessonName | capitalize}}</td>
+          <td class="pe-0">{{data.evaluations.createdAt | date}}</td>
+          <td class="pe-0">{{data.evaluations.questions.length}}</td>
+          <td class="pe-0">{{data.lowMark}}</td>
+          <td class="pe-0">{{data.averageMark? data.averageMark: 'N/E'}}</td> 
+          <td class="pe-0">{{data.topMark}}</td> 
+          <td>
+            <button id="edit" class="btn p-0 mx-1" (click)="showEvaluationModal(row)">Ver</button>
+            <button [ngClass]="{'isNotAdmin': !isAdmin}" id="delete" (click)="selectRow(row);openDeletedModal()" class="btn p-0 mx-1">Eliminar</button>
+          </td> 
+        </tr>    
+      </tbody>
+    </ng-container>
+
+    <ng-container *ngIf="selectHeader === 'subjects1'" >
+      <tbody style="cursor: pointer;">
+        <ng-container *ngIf="isLoad else loader">
+          <tr *ngFor="let data of dataInfo | searchFilter: searchText | paginate: { id: 'subjects', itemsPerPage: 4, currentPage: p }; let i = index; let row"
+          (click)="selection.toggle(row); selectRow(row); selectData(i,4)" 
+          [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}">
+            <td>{{data.subjectInfo.name | capitalize}}</td>
+            <td>{{data.cantCourse}}</td>
+            <td>{{data.cantTeacher}}</td>
+          </tr>  
+        </ng-container>
+        <ng-template #loader>
+          <tr>
+            <td colspan="7">
+              <shared-loader></shared-loader>
+            </td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </ng-container> 
+
+    <ng-container *ngIf="selectHeader === 'subjects2'" >
+      <tbody style="cursor: pointer;">
+        <tr *ngFor="let data of dataInfo | paginate: { id: 'infoSubjects', itemsPerPage: 4, currentPage: p }; let i = index; let row"
+        (click)="selection.toggle(row); selectRow(row); selectData(i,4)" 
+        [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}">
+          <td>{{data.courseName | capitalizeAll}}</td>
+          <td>{{data.courseTeacher |capitalizeAll}}</td>
+          <td>{{data.subjectInfo.units.length}}</td>
+          <td>{{data.averageMark}}</td>
+          <td>
+            <button id="edit" (click)="showSubjectModal(row)" class="btn p-0 mx-1">Ver</button>
+          </td>   
+        </tr>    
+      </tbody>
+    </ng-container>
+  </table>
+</div>
+
+<div class="container-fluid">
+  <div class="row justify-content-end">
+    <div class="col">
+      <pagination-controls class="pagination" [ngClass]="{'noDisplay': selectHeader != 'teacher'}" 
+        id="teacher" 
+        (pageChange)="p = $event"
+        [autoHide]="false"
+        [responsive]="true"
+        previousLabel=""
+        nextLabel=""
+        >
+      </pagination-controls>
+      
+      <pagination-controls class="pagination" [ngClass]="{'noDisplay': selectHeader != 'student1'}" 
+        id="student" 
+        (pageChange)="p = $event"
+        [autoHide]="false"
+        [responsive]="true"
+        previousLabel=""
+        nextLabel=""
+        >
+      </pagination-controls>
+      
+      <pagination-controls class="pagination" [ngClass]="{'noDisplay': selectHeader != 'student2'}" 
+        id="studentInfo" 
+        (pageChange)="p = $event"
+        [autoHide]="false"
+        [responsive]="true"
+        previousLabel=""
+        nextLabel=""
+        >
+      </pagination-controls>
+
+      <pagination-controls class="pagination" [ngClass]="{'noDisplay': selectHeader != 'course1'}" 
+        id="course" 
+        (pageChange)="p = $event"
+        [autoHide]="false"
+        [responsive]="true"
+        previousLabel=""
+        nextLabel=""
+        >
+      </pagination-controls>
+
+      <pagination-controls class="pagination" [ngClass]="{'noDisplay': selectHeader != 'course2'}" 
+        id="infoCourse" 
+        (pageChange)="p = $event"
+        [autoHide]="false"
+        [responsive]="true"
+        previousLabel=""
+        nextLabel=""
+        >
+      </pagination-controls>
+
+      <pagination-controls class="pagination" [ngClass]="{'noDisplay': selectHeader != 'subjects1'}" 
+        id="subjects" 
+        (pageChange)="p = $event"
+        [autoHide]="false"
+        [responsive]="true"
+        previousLabel=""
+        nextLabel=""
+        >
+      </pagination-controls>
+
+      <pagination-controls class="pagination" [ngClass]="{'noDisplay': selectHeader != 'subjects2'}" 
+        id="infoSubjects" 
+        (pageChange)="p = $event"
+        [autoHide]="false"
+        [responsive]="true"
+        previousLabel=""
+        nextLabel=""
+        >
+      </pagination-controls>
+    </div>
+  </div>
+</div>
+

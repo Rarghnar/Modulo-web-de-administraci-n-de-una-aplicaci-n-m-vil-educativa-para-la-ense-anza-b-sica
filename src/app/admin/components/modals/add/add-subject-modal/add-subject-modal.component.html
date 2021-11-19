@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <h5 id="title" class="modal-title ps-5 pt-3">Agregar Asignatura</h5>
+    <button type="button" class="btn-close" (click)="activeModal.close('cancel')"></button>
+</div>
+<div class="modal-body">
+    <div class="row justify-content-center text-start g-0">
+        <div class="col-11 px-2">
+            <form [formGroup]="checkoutForm" #createForm="ngForm" (ngSubmit)="onSubmit(createForm)" >
+                <div class="row justify-content-center g-0">
+                    <div class="col mb-3 pe-2">
+                        <label class="mb-2" for="name" style="font-weight: bold;">Nombre</label>
+                        <small class="text-danger" style="text-align: left;"
+                            *ngIf="controlIsRequired('name') && createForm.submitted"
+                        >
+                            (Nombre requerido)
+                        </small>
+                        <input type="text" 
+                            formControlName="name"
+                            class="form-control" 
+                            placeholder="Nombre" aria-label="Buscar" 
+                            aria-describedby="basic-addon1" 
+                            style="max-width: 350px; display: inline-flex;"
+                            [ngClass]="{ 'is-invalid': controlIsInvalid('name') && createForm.submitted }"
+                        >
+                    </div>
+
+                    <div class="col mb-3 ps-2">
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col">                        
+                        <div class="text-end mt-4">
+                            <button type="submit" class="btn sucess mx-2">Agregar</button>
+                            <button type="button" class="btn btn-danger ms-2" (click)="activeModal.close('cancel')">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

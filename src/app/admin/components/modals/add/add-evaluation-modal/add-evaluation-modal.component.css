@@ -1,0 +1,183 @@
+#title {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    color: #000000;
+    margin-bottom: 0;
+}
+
+button{
+    min-width: 88px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #FFFFFF !important;
+}
+
+.plus {
+    min-width: 40px !important;
+    border-radius: 15%;
+}
+
+.plusAlt {
+    min-width: 40px !important;
+    border-radius: 50%;
+    background-color: transparent !important;
+    color: #76C768 !important;
+}
+
+.plusAlt:hover i {
+    font-size: 20px;
+}
+
+.sucess {
+    background-color: #76C768;
+}
+
+.sucess:hover {
+    background-color: #5f9c54;    
+}
+
+.back {
+    background-color: #e0d041;
+}
+
+.back:hover {
+    background-color: #cfc13c;    
+}
+
+input:focus, input:active, .btn:active, .btn:focus, .btn-close:focus, .btn-close.active, 
+select:focus, select:active, textarea:focus, textarea:active {
+    box-shadow: none;
+    overflow: none;
+}
+
+.notShow {
+    display: none;
+}
+
+.isEdit {
+    display: inline-flex !important;
+}
+
+.obligatory-field {
+    font-size: 10px;
+    font-weight: 400;
+    margin: 0;
+}
+
+/* --------------------Table------------------ */
+
+#columns {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    color: #FFFFFF;
+    background-color: #55AAD3;
+    height: 44px;
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    height: 38px;
+}
+
+#arrow {
+    color: #55AAD3;
+}
+
+#arrow:hover {
+    color: #4898c0;
+}
+
+td {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    color: #676767;
+    border: none;
+    padding-left: 20px;
+    height: 38px;
+}
+
+.big {
+    height: 250px;
+}
+
+.mid {
+    min-height: 210px;
+}
+
+#edit {
+    width: 70px;
+    height: 22px;
+    background-color: #76C768;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    border-radius: 10px;
+}
+
+#delete {
+    width: 70px;
+    height: 22px;
+    background-color: #F28B7C;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    border-radius: 10px;
+}
+
+.btn:focus, .btn:active {
+    box-shadow: none;
+    outline: none;
+}
+
+#edit:hover {
+    background-color: #5f9c54;
+}
+
+#delete:hover {
+    background-color: #f0543c;
+}
+
+tbody tr:hover{
+    /* background-color: rgb(211, 210, 210); */
+    background-color: rgba(85, 170, 211, 0.35);;
+}
+
+.highlighted:hover{
+    /* background-color: #63d6df !important; */
+    background-color: rgba(85, 170, 211, 0.35) !important;
+}
+
+.highlighted{
+    /* background-color: #63d6df; */
+    background-color: rgba(85, 170, 211, 0.35);;
+}
+
+.pagination {
+    justify-content: flex-end;
+}
+
+.pagination /deep/ .ngx-pagination .current {
+    background: #55AAD3;
+    border-radius: 50%;
+}
+
+.btnDeleted {
+    background-color: #F28B7C;
+}
+
+.btnDeleted:hover {
+    background-color: #f0543c;
+}
+
+.requiredAlert {
+    display: none;
+}

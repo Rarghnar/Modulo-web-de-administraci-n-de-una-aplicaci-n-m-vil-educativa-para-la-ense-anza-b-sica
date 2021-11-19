@@ -1,0 +1,54 @@
+<div id="body" class="container-fluid">
+    <div class="row justify-content-center" style="height: 100vh;">
+        <div class="col-11 col-md-12 align-self-center">
+            <div class="row g-0 justify-content-center">
+                <div class="col-3 text-center" style="width: 450px;">
+                    <h1 style="font-size: 50px; font-weight: 400; line-height: 59px; color: #869A9B;">Bienvenido</h1>
+                </div>
+            </div>
+            <form [formGroup]="checkoutForm" #createForm="ngForm" (ngSubmit)="login(createForm)">
+                <div class="row g-0 justify-content-center my-3">
+                    <div class="col-9 col-md-3" style="width: 450px;">
+                        <label for="email" class="my-2">CORREO:</label>
+                        <small class="text-danger" style="text-align: left;"
+                        *ngIf="controlIsRequired('email') && createForm.submitted"
+                        >
+                        (Email requerido)
+                        </small>
+                        <small class="text-danger" style="text-align: left;"
+                        *ngIf="controlIsInvalidEmail('email') && createForm.submitted"
+                        >
+                        (Email invalido)
+                        </small>
+                        <input id="email" type="text" class="form-control" formControlName="email" placeholder="correo@ejemplo.com"
+                        [ngClass]="{ 'is-invalid': controlIsInvalid('email') && createForm.submitted }">                    
+                    </div>
+                </div>
+                <div class="row g-0 justify-content-center my-3">
+                    <div class="col-9 col-md-3" style="width: 450px;">
+                        <label for="password" class="my-2">CONTRASEÑA:</label>
+                        <small class="text-danger" style="text-align: left;"
+                        *ngIf="controlIsRequired('password') && createForm.submitted"
+                        >
+                        (Contraseña requerida)
+                        </small>
+                        <div class="input-group mb-3">
+                        <input id="password" type="password" class="form-control" formControlName="password" placeholder="contraseña"
+                        [ngClass]="{ 'is-invalid': controlIsInvalid('password') && createForm.submitted }">                            
+                            <span id="eyePass" class="input-group-text"
+                            (click)="showPassword()">
+                                <i [ngClass]="{'notShow':showPass}" class="fas fa-eye-slash"></i>
+                                <i [ngClass]="{'notShow':!showPass}" class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-0 justify-content-center my-3">
+                    <div class="button-group text-center mt-3 col-3" style="width: 450px;">
+                        <button type="submit" class="btn">INICIAR SESIÓN</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

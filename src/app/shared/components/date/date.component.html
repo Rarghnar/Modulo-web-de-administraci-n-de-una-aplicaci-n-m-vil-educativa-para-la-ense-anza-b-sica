@@ -1,0 +1,15 @@
+<div class="row mt-4 mb-5">
+    <div class="col">
+        <ng-container *ngFor="let month of months; let i = index">
+            <button 
+                id="{{ 'wave' + i }}"    
+                type="button" class="btn me-2 mb-2"
+                (click)="selected($event, i, month)"
+                [ngClass]="{'selected': monthSelected == month}"
+            >
+                {{month}}
+            </button>
+        </ng-container>
+    </div>
+</div>    
+

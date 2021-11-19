@@ -1,0 +1,83 @@
+<div class="container-fluid"> 
+    <div class="row g-0">
+        <div class="col-12 px-0" style="margin-top:90px;">
+            <p id="title">Actualizar contraseña</p>
+        </div>
+    </div>
+    <div class="row g-0" style="margin-top: 70px;">
+        <div class="col-11">
+            <form [formGroup]="checkoutForm" #createForm="ngForm" (ngSubmit)="submitContact($event, createForm)">
+                <div class="row g-0">
+                    <div class="col-10 col-md-3 mb-3">
+                        <label class="mb-2" for="currentPass" style="font-weight: bold;">Contraseña actual</label>                        
+                        <input type="password" 
+                            class="form-control" 
+                            formControlName="currentPass"
+                            placeholder="Contraseña" aria-label="Buscar" 
+                            aria-describedby="basic-addon1" 
+                            style="max-width: 350px; display: inline-flex;"
+                            [ngClass]="{ 'is-invalid': (controlIsInvalid('currentPass') && createForm.submitted) || errorCurrentPass}"
+                        >
+                        <small class="text-danger" style="text-align: left;"
+                            *ngIf="controlIsRequired('currentPass') && createForm.submitted "
+                        >
+                            (Contraseña actual requerida)
+                        </small>                        
+                        <small class="text-danger" style="text-align: left;"
+                            *ngIf="errorCurrentPass"
+                        >
+                            (Contraseña actual Incorrecta)
+                        </small>                        
+                    </div>
+                    <div class="col-10 col-md-3 offset-md-1 mb-3">
+                        <label class="mb-2" for="newPass" style="font-weight: bold;">Nueva contraseña</label>                        
+                        <input type="text" 
+                            class="form-control" 
+                            formControlName="newPass"
+                            placeholder="Contraseña" 
+                            aria-label="Buscar" 
+                            aria-describedby="basic-addon1" 
+                            style="max-width: 350px; display: inline-flex;"
+                            [ngClass]="{ 'is-invalid': (controlIsInvalid('newPass') && createForm.submitted) || errorNewPass}"
+                        >
+                        <small class="text-danger" style="text-align: left;"
+                            *ngIf="controlIsRequired('newPass') && createForm.submitted "
+                        >
+                            (Contraseña actual requerida)
+                        </small>
+                        <small class="text-danger" style="text-align: left;"
+                            *ngIf="errorNewPass"
+                        >
+                            (Contraseña actual debe ser distinta a la actual)
+                        </small>
+                    </div>
+                    <div class="col-10 col-md-3 offset-md-1 mb-3">
+                        <label class="mb-2" for="repeatPass" style="font-weight: bold;">Repetir contraseña</label>                        
+                        <input type="text" 
+                            class="form-control" 
+                            formControlName="repeatPass"
+                            placeholder="Contraseña" 
+                            aria-label="Buscar" 
+                            aria-describedby="basic-addon1" 
+                            style="max-width: 350px; display: inline-flex;"
+                            [ngClass]="{ 'is-invalid': (controlIsInvalid('repeatPass') && createForm.submitted) || errorRepeatPass}"
+                        >
+                        <small class="text-danger" style="text-align: left;"
+                            *ngIf="controlIsRequired('repeatPass') && createForm.submitted "
+                        >
+                            (Contraseña actual requerida)
+                        </small>
+                        <small class="text-danger" style="text-align: left;"
+                            *ngIf="errorRepeatPass"
+                        >
+                            (Contraseña no coincide)
+                        </small>
+                    </div>
+                    <div class="col-11 text-center">
+                        <button type="submit" class="btn search mx-2">Actualizar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

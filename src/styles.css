@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+.font-navbar {
+    font-family: 'Righteous', cursive;
+}
+
+.font-brand {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.required {
+    color: rgb(212, 88, 88);
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Roboto Condensed', sans-serif; }
+
+@media only screen and (min-width: 1145px) {
+    .search{
+       margin-left: 4px;
+       margin-right: 4px;
+    }
+} 
+
+@media only screen and (max-width: 1145px) {
+    .search{
+       margin-left: 0px;
+       margin-top: 5px;
+       margin-right: 0px;
+    }
+} 

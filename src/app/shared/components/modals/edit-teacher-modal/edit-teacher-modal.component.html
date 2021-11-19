@@ -1,0 +1,185 @@
+<ng-container *ngIf="isLoad else loader">
+    <div class="modal-header">
+        <h5 id="title" class="modal-title ps-5 pt-3">Agregar Profesor</h5>
+        <button type="button" class="btn-close" (click)="activeModal.close('cancel')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="text-end">
+            <p class="obligatory-field">(*) Campo Obligatorio </p>
+        </div>
+        <div class="row justify-content-center text-start g-0">
+            <div class="col-11 px-2">
+                <form [formGroup]="checkoutForm" #createForm="ngForm" (ngSubmit)="onSubmit(createForm)" >
+                    <div class="row justify-content-center g-0">
+                        <div class="col mb-3 pe-2">
+                            <label class="mb-2" for="names" style="font-weight: bold;">Nombres <span class="required">*</span></label>
+                            <small class="text-danger" style="text-align: left;"
+                                *ngIf="controlIsRequired('names') && createForm.submitted"
+                            >
+                                (Nombres requeridos)
+                            </small>
+                            <input type="text" 
+                                formControlName="names"
+                                class="form-control" 
+                                placeholder="Nombres" aria-label="Buscar" 
+                                aria-describedby="basic-addon1" 
+                                style="max-width: 350px; display: inline-flex;"
+                                [ngClass]="{ 'is-invalid': controlIsInvalid('names') && createForm.submitted }"
+                            >
+                        </div>
+    
+                        <div class="col mb-3 ps-2">
+                            <label class="mb-2" for="lastNames" style="font-weight: bold;">Apellidos <span class="required">*</span></label>
+                            <small class="text-danger" style="text-align: left;"
+                                *ngIf="controlIsRequired('lastNames') && createForm.submitted"
+                            >
+                                (Apellidos requeridos)
+                            </small>
+                            <input type="text" 
+                                formControlName="lastNames"
+                                class="form-control" 
+                                placeholder="Apellidos" aria-label="Buscar" 
+                                aria-describedby="basic-addon1" 
+                                style="max-width: 350px; display: inline-flex;"
+                                [ngClass]="{ 'is-invalid': controlIsInvalid('lastNames') && createForm.submitted }"
+                            >
+                        </div>
+                    </div>
+    
+                    <div class="row g-0">
+                        <div class="col-6 mb-3 pe-2">
+                            <label class="mb-2" for="rut" style="font-weight: bold;">Rut <span class="required">*</span></label>
+                            <small class="text-danger" style="text-align: left;"
+                                *ngIf="controlIsRequired('rut') && createForm.submitted"
+                            >
+                                (Rut requerido)
+                            </small>
+                            <input type="text" 
+                                formControlName="rut"
+                                class="form-control" 
+                                placeholder="Rut" aria-label="Buscar" 
+                                aria-describedby="basic-addon1" 
+                                style="max-width: 350px;"
+                                [ngClass]="{ 'is-invalid': controlIsInvalid('rut') && createForm.submitted }"
+                            >
+                        </div>
+                        <div class="col-6 mb-3 ps-2">
+                            <label class="mb-2" for="profession" style="font-weight: bold;">Profesión <span class="required">*</span></label>
+                            <small class="text-danger" style="text-align: left;"
+                                *ngIf="controlIsRequired('profession') && createForm.submitted"
+                            >
+                                (Profesión requerida)
+                            </small>
+                            <input type="text" 
+                                formControlName="profession"
+                                class="form-control" 
+                                placeholder="Profesión" aria-label="Buscar" 
+                                aria-describedby="basic-addon1" 
+                                style="max-width: 350px;"
+                                [ngClass]="{ 'is-invalid': controlIsInvalid('profession') && createForm.submitted }"
+                            >
+                        </div>
+                    </div>
+    
+                    <div class="row g-0">
+                        <div class="col mb-3">
+                            <label class="mb-2" for="subject" style="font-weight: bold;">Asignaturas</label>
+                            <small class="text-danger" style="text-align: left;"
+                                *ngIf="controlIsRequired('subject') && createForm.submitted"
+                            >
+                                (Asignatura requerida)
+                            </small>
+                            <ng-select 
+                                formControlName="subject"
+                                (ngModelChange)="subjectSelected($event)"
+                                [multiple]="true" 
+                                [closeOnSelect]="false" 
+                                [searchable]="true">
+                                <ng-option *ngFor="let subject of subjectsList" [value]="subject._id">{{subject.name |capitalize}}</ng-option>
+                             </ng-select>
+                        </div>
+    
+                        <!--<div class="col mb-3 ps-2">
+                             <label class="mb-2" for="password" style="font-weight: bold;">Contraseña</label>
+                            <small class="text-danger" style="text-align: left;"
+                                *ngIf="controlIsRequired('password') && createForm.submitted"
+                            >
+                                (Contraseña requerido)
+                            </small>
+                            
+                            <input type="text" 
+                                formControlName="password"
+                                class="form-control" 
+                                placeholder="Contraseña" aria-label="Buscar" 
+                                aria-describedby="basic-addon1" 
+                                style="max-width: 350px; display: inline-flex;"
+                                [ngClass]="{ 'is-invalid': controlIsInvalid('password') && createForm.submitted }"
+                            > 
+                        </div>-->
+                    </div>
+    
+                    <div class="row g-0">                        
+                        <div class="col mb-3">
+                            <label class="mb-2" for="course" style="font-weight: bold;">Cursos Vacios</label>
+                            <!-- <small class="text-danger" style="text-align: left;"
+                                *ngIf="controlIsRequired('course') && createForm.submitted"
+                            >
+                                (Curso requerido)
+                            </small> -->
+                            <ng-select 
+                                formControlName="course"
+                                (ngModelChange)="coursesSelected($event)"
+                                [multiple]="true" 
+                                [closeOnSelect]="false" 
+                                [searchable]="true">
+                                <ng-option *ngFor="let course of newCourseList" [value]="course._id">{{course.name |capitalize}}</ng-option>
+                             </ng-select>
+                        </div>
+                        <!-- <div class="col-6 mb-3 pe-2"></div> -->
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-6 mb-3 pe-2">
+                            <label class="mb-2" for="courseWithTeacher" style="font-weight: bold;">Cursos ocupados</label>
+                            <!-- <small class="text-danger" style="text-align: left;"
+                                *ngIf="controlIsRequired('courseWithTeacher') && createForm.submitted"
+                            >
+                                (Curso requerido)
+                            </small> -->
+                            <ng-select 
+                                formControlName="courseWithTeacher"
+                                (ngModelChange)="coursesBusySelected($event)"
+                                [multiple]="true"
+                                [closeOnSelect]="false" 
+                                [searchable]="true">
+                                <ng-option *ngFor="let course of newCourseListBusy" 
+                                [value]="course._id">
+                                    {{course.name |capitalize}} --- Prof. {{course.teacher.names |capitalizeAll}} {{course.teacher.lastNames |capitalizeAll}}
+                                </ng-option>
+                             </ng-select>
+                        </div>     
+                        <div class="col-6 mb-3 pe-2">
+                            <p>Si selecciona un curso ocupado, el profesor de ese curso dejara de estar a cargo.</p>
+                        </div>                   
+                    </div>
+    
+                    <div class="row justify-content-center">
+                        <div class="col">                        
+                            <div class="text-end mt-4">
+                                <button [ngClass]="{'notShow': isLoadButton}" type="submit" class="btn sucess mx-2">Editar</button>
+                                <button [ngClass]="{'notShow': !isLoadButton}" disabled type="button" class="btn sucess mx-2">
+                                    <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </button>
+                                <button type="button" [disabled]="isLoadButton" class="btn btn-danger ms-2" (click)="activeModal.close('cancel')">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-template #loader>
+    <shared-loader></shared-loader>
+</ng-template>

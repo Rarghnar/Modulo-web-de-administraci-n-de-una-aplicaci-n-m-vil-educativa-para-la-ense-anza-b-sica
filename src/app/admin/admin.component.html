@@ -1,0 +1,17 @@
+<div class="container-fluid font-brand"> 
+    <div class="row">
+        <div class="showSidebar px-0">
+            <div class="col-2 col-md-2 px-0" style="max-width: 250PX; min-width: 250PX;">
+                <shared-sidebar [pathRoute]="path" [isAdmin]="isAdmin"></shared-sidebar>           
+            </div>
+        </div>
+        <div class="col-12 col-md-8 col-lg-9" style="margin-left: auto; margin-right: auto;">
+            <div class="row">
+                <div class="sidebarMobile">                     
+                    <shared-sidebar-mobile [pathRoute]="path" [isAdmin]="isAdmin"></shared-sidebar-mobile>
+                </div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

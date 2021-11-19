@@ -1,0 +1,34 @@
+<div class="container-fluid"> 
+    <div class="row g-0">
+        <div class="col-12 px-0" style="margin-top:90px;">
+            <p id="title">PROFESORES</p>
+        </div>
+    </div>
+    <div class="row g-0" style="margin-top: 90px;">
+        <div class="col-12">
+            <div class="row g-0">
+                <div class="col-6 mb-3">
+                    <input #box (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)" 
+                    type="text" class="form-control" placeholder="Buscar" aria-label="search" aria-describedby="basic-addon1" style="max-width: 350px; display: inline-flex;">
+                    <button class="btn search " (click)="searchButton()"><img src="../../../../assets/icons/search-icon.svg" alt=""></button>
+                </div>
+                <div class="col-6 mb-3 text-end" [ngClass]="{'isNotAdmin':!(isAdmin)}">
+                    <button type="button" class="btn add p-0" (click)="openAddModal()">
+                        <img src="../../../../assets/icons/add-icon.svg" alt=""><span class="addText ms-2">Agregar</span>
+                    </button>
+                    <!-- <admin-modal-add-teacher></admin-modal-add-teacher> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-12 ps-0">
+            <shared-info-tables 
+                (refreshTable)="refreshTable($event)"
+                [searchText]="textFilter" 
+                [selectHeader]="'teacher'" 
+                [dataInfo]="teacherPost"
+                [isLoad]="isLoad"
+                [isAdmin]="isAdmin"
+            ></shared-info-tables>
+        </div>
+    </div>
+</div>
