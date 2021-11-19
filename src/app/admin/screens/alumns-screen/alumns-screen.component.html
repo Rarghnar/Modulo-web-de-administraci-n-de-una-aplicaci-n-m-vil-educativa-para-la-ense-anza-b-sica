@@ -1,0 +1,55 @@
+<div class="container-fluid"> 
+    <div class="row g-0">
+        <div class="col-12 px-0" style="margin-top:90px;">
+            <p id="title">ALUMNOS</p>
+        </div>
+    </div>
+    <div class="row g-0" style="margin-top: 90px;">
+        <div class="col-12">
+            <div class="row g-0">
+                <div class="col-6 mb-3">
+                    <input #box (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)"
+                    type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="basic-addon1" style="max-width: 350px; display: inline-flex;">
+                    <button (click)="searchButton()"  class="btn search "><img src="../../../../assets/icons/search-icon.svg" alt=""></button>
+                </div>
+                <div class="col-6 mb-3 text-end" [ngClass]="{'isNotAdmin':!(isAdmin)}">
+                    <button type="button" class="btn add p-0" (click)="openAddStudentModal()">
+                        <img src="../../../../assets/icons/add-icon.svg" alt=""><span class="addText ms-2">Agregar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 ps-0">
+            <shared-info-tables 
+                [searchText]="textFilter" 
+                [selectHeader]="'student1'" 
+                [dataInfo]="dataStudent"
+                [isLoad]="isLoad"
+                [isAdmin]="isAdmin" 
+                (refreshTable)="refreshTable($event)"
+                (isFirst)="isFirst($event)" 
+                (infoBack)="selectStudent($event)">
+            </shared-info-tables>
+        </div>
+    </div>
+
+    <div class="row g-0" style="margin-top: 18px;">
+        <div class="col-12">
+            <div class="row g-0">
+                <div class="col mb-3">
+                    <select [(ngModel)]="optionSubject" (change)="selectStudent(studentSelected)" id="selectSubject" class="form-select" aria-label="Default select example" [disabled]="listSubjects.length <= 0">
+                        <option id="optionSubject" *ngFor="let item of listSubjects" [value]="item.name">{{item.name | capitalize}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 ps-0">
+            <shared-info-tables 
+                [selectHeader]="'student2'" 
+                [infoSelected]="infoSelect"
+                [isLoad2]="isLoad2"
+                (refreshTable)="refreshTable($event)"
+            ></shared-info-tables>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="modal-header text-center" style="display: block;">
+    <h1 id="title">¿Deseas eliminar </h1>
+    <ng-container [ngSwitch]="selectedHeader">
+        <h1 id="title" *ngSwitchCase="'teacher'">a {{selected.names | capitalizeAll}} {{selected.lastNames | capitalizeAll}}?</h1>
+        <h1 id="title" *ngSwitchCase="'student1'">a {{selected.names | capitalizeAll}}?</h1>
+        <h1 id="title" *ngSwitchCase="'course1'">el curso {{selected.name | capitalizeAll}}?</h1>   
+        <h1 id="title" *ngSwitchCase="'course2'">la evaluación {{selected.evaluations.name | capitalizeAll}}?</h1>
+        
+        <h1 id="title" *ngSwitchCase="'subjects1'">{{selected.name | capitalizeAll}}?</h1>
+    </ng-container>
+ </div>
+<div class="modal-body text-center">
+    <button [ngClass]="{'notShow': isLoadButton}" class="btn btn-danger mx-3" (click)="deleteRow()">Eliminar</button>
+    <button [ngClass]="{'notShow': !isLoadButton}" disabled type="button" class="btn btn-danger mx-2">
+        <div class="spinner-border spinner-border-sm" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </button>
+    <button [disabled]="isLoadButton" class="btn btn-warning mx-3" (click)="activeModal.close('cancel')">Cancelar</button>
+</div>
+

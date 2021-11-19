@@ -1,0 +1,90 @@
+<div class="container-fluid sidebar text-white font-brand" style="height: 100%; min-height: 100vh;">
+    <div class="row logo g-0">
+        <div class="col align-self-center pt-0 text-center">
+            <h2 class="title">Dashboard</h2>
+            <!-- <img id="logo" class="img-fluid" src="../../../../assets/sidebar/logo-main.svg">    -->    
+        </div>
+    </div>
+    <div class="row g-0">
+        <a class="btn" id="select" [routerLink]="['/'+pathRoute+'/teachers']" routerLinkActive="active" type="button" class="col-12"
+            [ngClass]="{'isNotAdmin':!isAdmin}">
+            <div class="row g-0">
+                <div class="col offset-3 align-self-center">
+                    Profesores
+                </div>
+                <div class="col-4 align-self-center">
+                    <img class="img-fluid" src="../../../../assets/sidebar/logo-teacher.svg" alt="">
+                </div>
+            </div>
+        </a>
+        <a class="btn" id="select" [routerLink]="['/'+pathRoute+'/alumns']" routerLinkActive="active" type="button" class="col-12">
+            <div class="row g-0">
+                <div class="col offset-3 align-self-center">
+                    Alumnos
+                </div>
+                <div class="col-4 align-self-center">
+                    <img class="img-fluid" src="../../../../assets/sidebar/logo-students.svg" alt="">
+                </div>
+            </div>
+        </a>
+        <a id="select" type="button" [routerLink]="['/'+pathRoute+'/courses']" routerLinkActive="active" class="col-12">
+            <div class="row g-0">
+                <div class="col offset-3 align-self-center">
+                    Cursos
+                </div>
+                <div class="col-4 align-self-center">
+                    <img class="img-fluid" src="../../../../assets/sidebar/logo-course.svg" alt="">
+                </div>
+            </div>
+        </a>
+        <a id="select" type="button" [routerLink]="['/'+pathRoute+'/subjects']" routerLinkActive="active" class="col-12">
+            <div class="row g-0">
+                <div class="col offset-3 align-self-center">
+                    Asignatuas
+                </div>
+                <div class="col-4 align-self-center">
+                    <img class="img-fluid" src="../../../../assets/sidebar/logo-subjects.svg" alt="">
+                </div>
+            </div>
+        </a>
+        <a id="select" type="button" [routerLink]="['/'+pathRoute+'/statistics']" routerLinkActive="active" class="col-12">
+            <div class="row g-0">
+                <div class="col offset-3 align-self-center">
+                    Estadísticas
+                </div>
+                <div class="col-4 align-self-center">
+                    <img class="img-fluid" src="../../../../assets/sidebar/logo-statistics.svg" alt="">
+                </div>
+            </div>
+        </a>
+        <a id="select" type="button" [routerLink]="['/'+pathRoute+'/options']" routerLinkActive="active" class="col-12">
+            <div class="row g-0">
+                <div class="col offset-3 align-self-center">
+                    Ajustes
+                </div>
+                <div class="col-4 align-self-center">
+                    <img class="img-fluid" src="../../../../assets/sidebar/logo.settings.svg" alt="">
+                </div>
+            </div>
+        </a>        
+        <a id="select" type="button" (click)="logOut()" class="col-12">
+            <div class="row g-0">
+                <div class="col offset-3 align-self-center">
+                    Salir
+                </div>
+                <!-- <div class="col-4 align-self-center">
+                    <img class="img-fluid" src="../../../../assets/sidebar/logo.settings.svg" alt="">
+                </div> -->
+            </div>
+        </a>        
+    </div>
+</div>
+
+
+
+
+
+
+ 
+
+

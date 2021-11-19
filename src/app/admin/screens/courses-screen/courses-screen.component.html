@@ -1,0 +1,60 @@
+<div class="container-fluid"> 
+    <div class="row g-0">
+        <div class="col-12 px-0" style="margin-top:90px;">
+            <p id="title">CURSOS</p>
+        </div>
+    </div>
+    <div class="row g-0" style="margin-top: 90px;">
+        <div class="col-12">
+            <div class="row g-0">
+                <div class="col-6 mb-3">
+                    <input #box (keyup)="onValue(box.value)" (keyup.enter)="onEnter(box.value)"
+                        type="text" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="basic-addon1" style="max-width: 350px; display: inline-flex;">
+                    <button (click)="searchButton()" class="btn search "><img src="../../../../assets/icons/search-icon.svg" alt=""></button>
+                </div>
+                <div class="col-6 mb-3 text-end" [ngClass]="{'isNotAdmin':!(isAdmin)}">                    
+                    <button class="btn add p-0" type="button" (click)="openAddCourseModal()">
+                        <img src="../../../../assets/icons/add-icon.svg" alt=""><span class="addText ms-2">Agregar</span>
+                    </button>                    
+                </div>
+            </div>
+        </div>
+        <div class="col-12 ps-0">
+            <shared-info-tables 
+                [searchText]="textFilter" 
+                [dataInfo]="courseData" 
+                [selectHeader]="'course1'" 
+                [isLoad]="isLoad"
+                [isAdmin]="isAdmin"
+                (isFirst)="isFirst($event)"
+                (infoBack)="selectCourse($event)"
+                (refreshTable)="refreshTable($event)"
+            ></shared-info-tables>
+        </div>
+    </div>
+    <div class="row g-0" style="margin-top: 18px;">
+        <div class="col-12">
+            <div class="row g-0">
+                <div class="col mb-3 text-start ">
+                    <p id="title">EVALUACIONES</p>
+                </div>                    
+                <div class="col mb-3 text-end">                    
+                    <select [(ngModel)]="optionSubject" (change)="selectCourse(courseSelected)" id="selectSubject" class="form-select" aria-label="Default select example" [disabled]="listSubjects.length <= 0">
+                        <option id="optionSubject" *ngFor="let item of listSubjects" [value]="item.name">{{item.name | capitalize}}</option>
+                    </select>
+                    <button [disabled]="isFirstLoad || !isSubject" class="btn add ms-2 mt-2 mt-md-0 " type="button" (click)="openAddEvaluationModal()">
+                        <img src="../../../../assets/icons/add-icon.svg" alt=""><span class="addText ms-2">Agregar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col ps-0">
+            <shared-info-tables 
+                [selectHeader]="'course2'" 
+                [dataSelected]="infoSelect"  
+                [isAdmin]="isAdmin"              
+                (refreshTable)="refreshTable($event)">
+            </shared-info-tables>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<ng-container *ngIf="isLoad else loader">
+    <!-- <ng-container *ngIf="chartLabels[0] else loader2"> -->
+    
+        <div class="row mb-3">
+            <div class="col ">
+                <div class="myChart">
+                    <canvas baseChart
+                        *ngIf="getScreenSize() > 600"
+                        height="300px"
+                        width="750px"
+                        [datasets]="chartData"
+                        [labels]="chartLabels"
+                        [options]="chartOptions"
+                        [chartType]="chartType">
+                    </canvas>
+
+                    <canvas baseChart 
+                        *ngIf="getScreenSize() <= 600"
+                        height="400px"
+                        width="700px"
+                        [datasets]="chartData"
+                        [labels]="chartLabels"
+                        [options]="chartOptions"
+                        [chartType]="chartType">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    <!-- </ng-container> -->
+</ng-container>
+
+<!-- <button (click)="changeData([70,50,70,60])">HHH</button> -->
+
+<ng-template #loader>
+    <shared-loader></shared-loader>
+</ng-template>
+
+<ng-template #loader2>
+    Sin información, es necesario usar los filtros de asignatura, curso y seleccionar un mes
+</ng-template>
