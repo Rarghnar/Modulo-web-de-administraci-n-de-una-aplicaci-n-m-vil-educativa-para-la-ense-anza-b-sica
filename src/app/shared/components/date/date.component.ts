@@ -88,7 +88,7 @@ export class DateComponent implements OnInit {
     
     for (const studentCourseSelected of this.alumnsInCourse) {
       const student:any = studentCourseSelected;
-      this.promediosAlumnos = [];
+      this.markStudent = [];
       for (const evaRecord of student.evaluationsRecords) {
         this.evaluationFinded = this.evaluationAll.find((evaluation: any) => evaluation._id === evaRecord.evaluation);
         this.evaluationMonth = this.capitalizePipe.transform(moment(this.evaluationFinded?.createdAt).format("MMMM"));
