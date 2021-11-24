@@ -196,7 +196,7 @@ export class AddEvaluationModalComponent implements OnInit {
       };   
       if (!this.isEmpty) {
         try {
-          /* await this.lessonProviderService.addEvaluationLesson(this.lessonSelected, evaluationData); */
+          await this.lessonProviderService.addEvaluationLesson(this.lessonSelected, evaluationData);
           this.notificationService.success('Evaluación agregador correctamente');
           this.activeModal.close('refresh')
           form.resetForm();
