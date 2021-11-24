@@ -67,7 +67,7 @@ export class OptionsScreenComponent implements OnInit {
               password: newPass
             }     
             try {
-              /* await this.teacherProviderService.changePassword(this.userId, newPassword).toPromise(); */
+              await this.teacherProviderService.changePassword(this.userId, newPassword).toPromise();
               this.notificationService.success('La contraseña se ha cambiado exitosamente');
               form.resetForm();
               this.checkoutForm.reset();
